@@ -17,8 +17,11 @@
             <div class="col-sm-6">
                 <h1>Lista de tareas</h1>
                 <ul class="list-group">
-                    <li class="list-group-item">Elemento 1</li>
-                    <li class="list-group-item">Elemento 2</li>
+                    <li class="list-group-item" 
+                        v-for="item in list"
+                        v-bind:class="item.completed == true ? 'disabled' : ''">
+                        {{ item.keep }}
+                    </li>
                 </ul>
             </div>
         </div>
@@ -27,8 +30,8 @@
             <div class="col-md-12">
                 <hr>
             
-                <pre>
-                    Datos del objeto
+                <pre>     
+                        {{ $data | json}}
                 </pre>
             </div>
         </div>
