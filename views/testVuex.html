@@ -21,11 +21,16 @@
             template:/*html*/
             `
             <div >
-                <h1>Numero : {{$store.state.number}}</h1>
+                <h1>Numero : {{number}}</h1>
                 <subTitulo>
                 </subTitulo>
             </div>
             `,
+            computed: {
+                ...Vuex.mapState([
+                    'number'
+                ])
+            },
         });
 
         Vue.component('subTitulo',{
@@ -37,7 +42,6 @@
             `
             ,
         });
-        window.Promise;
         const store = new Vuex.Store({
             state:{
                 number:1,
