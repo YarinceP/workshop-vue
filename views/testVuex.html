@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Document</title>
+
+    <!--  development version, includes helpfull console warnings  -->
+    <script src="../vue.js"></script>
+    <script src="https://unpkg.com/vuex@3.4.0/dist/vuex.js"></script>
+</head>
+<body>
+    
+    <div id="app" class="container">
+        <titulo></titulo>
+    </div>
+    
+    <script>
+        Vue.component('titulo',{
+            template:/*html*/
+            `
+            <div >
+                <h1>Numero : {{$store.state.number}}</h1>
+                <subTitulo>
+                </subTitulo>
+            </div>
+            `,
+        });
+
+        Vue.component('subTitulo',{
+            template:/*html*/
+            `
+            <div >
+                <button class="btn btn-primary" @click="$store.commit('increment')">+</button>
+            </div>
+            `
+            ,
+        });
+        window.Promise;
+        const store = new Vuex.Store({
+            state:{
+                number:1,
+            },
+            mutations:{
+                increment(state){
+                    state.number++;
+                }
+            }
+        });
+        new Vue({
+            el:'#app',
+            store:store
+        });
+    </script>
+</body>
+</html>
