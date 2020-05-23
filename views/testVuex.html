@@ -37,10 +37,14 @@
             template:/*html*/
             `
             <div >
-                <button class="btn btn-primary" @click="$store.commit('increment')">+</button>
+                <button class="btn btn-primary" @click="increment">+</button>
+                <button class="btn btn-danger" @click="decrement(2)">-</button>
             </div>
             `
             ,
+            methods: {
+                ...Vuex.mapMutations(['increment','decrement'])
+            },
         });
         const store = new Vuex.Store({
             state:{
@@ -49,7 +53,10 @@
             mutations:{
                 increment(state){
                     state.number++;
-                }
+                },
+                decrement(state,n){
+                    state.number-=n;
+                },
             }
         });
         new Vue({
