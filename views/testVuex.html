@@ -39,16 +39,25 @@
             <div >
                 <button class="btn btn-primary" @click="increment">+</button>
                 <button class="btn btn-danger" @click="decrement(2)">-</button>
+                <button class="btn btn-success" @click="getCourses">Get Courses</button>
+                <ul>
+                    <li  v-for="item in courses">{{item.nombre}}</li>    
+                </ul>
             </div>
             `
             ,
+            computed:{
+                ...Vuex.mapState(['courses'])
+            },
             methods: {
-                ...Vuex.mapMutations(['increment','decrement'])
+                ...Vuex.mapMutations(['increment','decrement']),
+                ...Vuex.mapActions(['getCourses'])
             },
         });
         const store = new Vuex.Store({
             state:{
                 number:1,
+                courses:[],
             },
             mutations:{
                 increment(state){
@@ -57,6 +66,16 @@
                 decrement(state,n){
                     state.number-=n;
                 },
+                fillCourses(state,coursesFromAction){
+                    state.courses = coursesFromAction;
+                }
+            },
+            actions:{
+                getCourses: async function ({commit}) {
+                    const data = await fetch('../json/courses.json');
+                    const courses = await data.json();
+                    commit('fillCourses',courses);
+                }
             }
         });
         new Vue({
